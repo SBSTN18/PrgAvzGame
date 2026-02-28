@@ -11,6 +11,7 @@ El sistema debe trabajar con entorno gráfico, cargar información desde archivo
 
 
 <br>
+
 ## Descripción del Juego
 
 El Balero es un juego tradicional que consiste en encajar una pieza de madera (mazo o coca) en un eje mediante movimientos de muñeca.
@@ -28,6 +29,7 @@ En el sistema:
 
 
 <br>
+
 ##  Integrantes
 
 - Sebastian Zambrano
@@ -36,6 +38,7 @@ En el sistema:
 
 
 <br>
+
 ## Temas Utilizados en el Proyecto
 
 - Programación Orientada a Objetos (POO)
