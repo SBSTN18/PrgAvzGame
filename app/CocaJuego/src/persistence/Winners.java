@@ -12,7 +12,7 @@ public class Winners {
 
     private static final int teamSize = 50;
     private static final int playerSize = 40;
-    private final String rutaArchivo;
+    private static final String rutaArchivo = "Specs/data/winners.dat";
 
     private static final int bytesForRegister =
             Long.BYTES                         // clave
@@ -22,8 +22,7 @@ public class Winners {
             + (playerSize * Character.BYTES)  // nombreJugador3
             + Integer.BYTES;                 // puntaje
 
-    public Winners(String rutaArchivo) {
-        this.rutaArchivo = rutaArchivo;
+    public Winners() {
         File dir = new File(rutaArchivo).getParentFile();
         if (dir != null && !dir.exists()) {
             dir.mkdirs();
