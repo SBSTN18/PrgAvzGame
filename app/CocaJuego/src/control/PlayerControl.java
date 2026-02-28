@@ -3,10 +3,9 @@ import modelo.Player;
 
 public class PlayerControl {
 
-    private PrincipalControl Cp;
+    
 
-    public PlayerControl(PrincipalControl cp) {
-        this.Cp = cp;
+    public PlayerControl() {
     }
 
     public Player createPlayer(String name, int code) {

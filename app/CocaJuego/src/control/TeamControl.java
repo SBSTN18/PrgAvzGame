@@ -16,9 +16,4 @@ public class TeamControl {
         return new Team(proyect, name, players, pin);
     }
 
-
-    
-
-
-
 }

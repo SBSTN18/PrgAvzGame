@@ -1,9 +1,11 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class Team {
+public class Team implements Serializable{
+    private static final long serialVersionUID = 1L;
 
     private String proyect;
     private String name;
@@ -35,7 +37,13 @@ public class Team {
         return pin;
     }
 
-   
+   public void clearPlayers() {
+        players.clear();
+    }
+
+    public void addPlayer(Player player) {
+        players.add(player);
+    }
 
     public int getCantPlayers() {
         return players.size();
