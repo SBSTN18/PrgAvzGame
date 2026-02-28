@@ -21,13 +21,13 @@ public enum Embocada {
         this.probability = probability;
     }
 
-    public boolean isSuccessfull() {
+    public int getPoints() {
         random = new Random();
         int randomNumber = random.nextInt(100) + 1; // Genera un número entre 1 y 100
-        return randomNumber <= probability;
+        if(randomNumber <= probability){
+            return points;
+        }else{
+            return 0;
+        }
     }
-
-    public int getPoints() {
-        return points;
-    }
-}
+}    
