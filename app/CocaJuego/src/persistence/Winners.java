@@ -67,4 +67,37 @@ public class Winners {
     private long calculateNext(RandomAccessFile raf) throws IOException {
         return (raf.length() / bytesForRegister) + 1L;
     }
+
+    public int timesWinned(String nombreEquipo) throws IOException {
+
+    int contador = 0;
+
+    try (RandomAccessFile raf = new RandomAccessFile(rutaArchivo, "r")) {
+
+        long totalRegistros = raf.length() / bytesForRegister;
+
+        for (int i = 0; i < totalRegistros; i++) {
+
+            raf.seek(i * bytesForRegister);
+
+            raf.readLong(); // saltar clave
+
+            String nombreGuardado = readString(raf, teamSize);
+
+            if (nombreGuardado.equalsIgnoreCase(nombreEquipo)) {
+                contador++;
+            }
+        }
+    }
+
+    return contador;
+    }
+
+    private String readString(RandomAccessFile raf, int tamaño) throws IOException {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < tamaño; i++) {
+        sb.append(raf.readChar());
+    }
+    return sb.toString().trim();
+    }
 }
