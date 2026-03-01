@@ -32,22 +32,23 @@ public class TeamsGeneralControl {
         return players;
     }
 
-    public Team validateTeam(Team team, List<Integer> codes, int pin){
-        if (team.getPin() == pin) {
-            team.clearPlayers();
-            for (Integer code : codes) {
-                for (Player player : team.getPlayers()) {
-                    if (player.getCode() == code) {
-                        team.addPlayer(player);
-                    }
-                } 
-            }
-            return team;
-        }else{
-            return null;
-        }
+    public Team validateTeam(Team team, List<Integer> codes, int pin) {
+    if (team.getPin() != pin) return null;
 
+    // Guardamos los jugadores originales ANTES de limpiar
+    List<Player> original = new ArrayList<>(team.getPlayers());
+    team.clearPlayers();
+
+    for (Integer code : codes) {
+        for (Player player : original) {  // ← iteramos la copia, no la lista vacía
+            if (player.getCode() == code) {
+                team.addPlayer(player);
+            }
+        }
     }
+
+    return team;
+}
 
     
 

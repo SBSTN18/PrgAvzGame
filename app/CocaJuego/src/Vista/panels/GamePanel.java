@@ -28,6 +28,8 @@ public class GamePanel extends JPanel {
     private JScrollPane centerScroll;
     private JPanel centerGrid;
     private List<TeamCard> teamCards;
+    private JButton btnIntentar;
+    private JButton btnIniciarRonda;
 
     // Derecha — tabla + info jugador
     private JPanel rightPanel;
@@ -84,6 +86,33 @@ public class GamePanel extends JPanel {
             leftPanel.add(btn);
             leftPanel.add(Box.createVerticalStrut(8));
         }
+
+        btnIntentar = new JButton("¡Intentar!");
+        btnIntentar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnIntentar.setBackground(new Color(70, 130, 180));
+        btnIntentar.setForeground(Color.WHITE);
+        btnIntentar.setFont(new Font("Arial", Font.BOLD, 14));
+        btnIntentar.setMaximumSize(new Dimension(150, 45));
+        btnIntentar.setFocusPainted(false);
+        btnIntentar.setBorderPainted(false);
+        btnIntentar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnIntentar.setEnabled(false);
+
+        leftPanel.add(btnIntentar);
+        leftPanel.add(Box.createVerticalStrut(10));
+
+        btnIniciarRonda = new JButton("▶ Iniciar Ronda");
+        btnIniciarRonda.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnIniciarRonda.setBackground(new Color(50, 150, 80));
+        btnIniciarRonda.setForeground(Color.WHITE);
+        btnIniciarRonda.setFont(new Font("Arial", Font.BOLD, 14));
+        btnIniciarRonda.setMaximumSize(new Dimension(150, 45));
+        btnIniciarRonda.setFocusPainted(false);
+        btnIniciarRonda.setBorderPainted(false);
+        btnIniciarRonda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        leftPanel.add(Box.createVerticalStrut(8));
+        leftPanel.add(btnIniciarRonda);
 
         add(leftPanel, BorderLayout.WEST);
     }
@@ -241,7 +270,35 @@ public class GamePanel extends JPanel {
     }
 
     public void setEmbocadasEnabled(boolean enabled) {
-        embocadaButtons.forEach(btn -> btn.setEnabled(enabled));
-        if (enabled) embocadaGroup.clearSelection();
+    embocadaButtons.forEach(btn -> btn.setEnabled(enabled));
+    if (enabled) {
+        embocadaGroup.clearSelection();
+        btnIntentar.setEnabled(false);
     }
+}
+
+    /**
+     * Habilita o deshabilita el botón de intentar.
+     */
+    public void setBtnIntentarEnabled(boolean enabled) {
+        btnIntentar.setEnabled(enabled);
+        
+    }
+
+    /**
+     * Retorna la embocada seleccionada actualmente.
+     * Null si no hay ninguna seleccionada.
+     */
+    public Embocada getSelectedEmbocada() {
+        ButtonModel selected = embocadaGroup.getSelection();
+        if (selected == null) return null;
+        return Embocada.valueOf(selected.getActionCommand());
+    }
+
+    public void setBtnIniciarRondaVisible(boolean visible) {
+        btnIniciarRonda.setVisible(visible);
+    }
+
+    public JButton getBtnIntentar() { return btnIntentar; }
+    public JButton getBtnIniciarRonda() { return btnIniciarRonda; }
 }

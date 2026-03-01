@@ -39,7 +39,7 @@ public class TeamCard extends JPanel {
 
         // Nombre del proyecto curricular
         JLabel proyectLabel = new JLabel(team.getProyect(), SwingConstants.CENTER);
-        proyectLabel.setFont(new Font("Arial", Font.ITALIC, 10));
+        proyectLabel.setFont(new Font("Arial", Font.ITALIC, 20));
         proyectLabel.setForeground(Color.LIGHT_GRAY);
 
         // Panel de jugadores

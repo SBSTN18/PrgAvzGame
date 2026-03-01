@@ -23,8 +23,11 @@ public class VistaControl {
     private Timer delayTimer;
     private int tiempoPorJugador;
 
-    public VistaControl( PrincipalControl principalControl) {
+    public VistaControl(PrincipalControl principalControl) {
         this.mainFrame = new MainFrame();
+        mainFrame.showPanel("HOME");
+        init();
+        mainFrame.setVisible(true);
         this.principalControl = principalControl;
     }
 
@@ -85,7 +88,7 @@ public class VistaControl {
 
         menu.getBtnIniciarJuego().addActionListener(e -> {
             tiempoPorJugador = menu.getTiempoSegundos() / 3;
-            principalControl.loadLastSession();
+            principalControl.initSession();
             startGame();
         });
     }
@@ -111,17 +114,51 @@ public class VistaControl {
     // ─── GAME PANEL ──────────────────────────────────────────────────────────
 
     private void initGameListeners() {
-        GamePanel game = mainFrame.getGamePanel();
+    GamePanel game = mainFrame.getGamePanel();
 
-        game.getEmbocadaButtons().forEach(btn ->
-            btn.addActionListener(e -> {
+    // Radio buttons — solo habilitan el botón intentar
+    game.getEmbocadaButtons().forEach(btn ->
+        btn.addActionListener(e ->
+            game.setBtnIntentarEnabled(true)
+        )
+    );
+
+    // Botón intentar — ejecuta el intento con delay
+    game.getBtnIntentar().addActionListener(e -> {
+        Embocada seleccionada = game.getSelectedEmbocada();
+        if (seleccionada == null) return;
+        game.setEmbocadasEnabled(false);
+        game.setBtnIntentarEnabled(false);
+        delayTimer = new Timer(1000, ev -> onIntentar(seleccionada));
+        delayTimer.setRepeats(false);
+        delayTimer.start();
+        });
+
+    game.getBtnIniciarRonda().addActionListener(e -> {
+        game.setBtnIniciarRondaVisible(false);
+        game.setEmbocadasEnabled(true);
+        startTimer();
+        });
+    }
+
+    private void startTimer() {
+    GamePanel game = mainFrame.getGamePanel();
+    int[] tiempo = {tiempoPorJugador};
+    game.updateTimer(tiempo[0]);
+
+    gameTimer = new Timer(1000, e -> {
+        tiempo[0]--;
+        game.updateTimer(tiempo[0]);
+
+        if (tiempo[0] <= 0) {
+                gameTimer.stop();
                 game.setEmbocadasEnabled(false);
-                Embocada seleccionada = Embocada.valueOf(btn.getActionCommand());
-                delayTimer = new Timer(1000, ev -> onIntentar(seleccionada));
-                delayTimer.setRepeats(false);
-                delayTimer.start();
-            })
-        );
+                game.setBtnIntentarEnabled(false);
+                principalControl.nextTurn();
+                startNextTurn();
+            }
+        });
+        gameTimer.start();
     }
 
     // ─── RESULTS PANEL ───────────────────────────────────────────────────────
@@ -143,7 +180,9 @@ public class VistaControl {
     // ─── FLUJO DE CARGA ──────────────────────────────────────────────────────
 
     private void loadTeamFromFile() {
-        JFileChooser fileChooser = new JFileChooser("Specs/data/teams");
+        File carpeta = new File("Specs/data/teams");
+        if (!carpeta.exists()) carpeta.mkdirs();
+        JFileChooser fileChooser = new JFileChooser(carpeta.getAbsoluteFile());
         fileChooser.setDialogTitle("Seleccionar archivo de equipo");
         fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
             "Archivos de propiedades (*.properties)", "properties"
@@ -246,21 +285,9 @@ public class VistaControl {
         );
         game.updateStandings(principalControl.getStandings());
         game.setEmbocadasEnabled(true);
+        game.setBtnIntentarEnabled(false);
+        game.setBtnIniciarRondaVisible(true);
 
-        int[] tiempo = {tiempoPorJugador};
-
-        gameTimer = new Timer(1000, e -> {
-            tiempo[0]--;
-            game.updateTimer(tiempo[0]);
-
-            if (tiempo[0] <= 0) {
-                gameTimer.stop();
-                game.setEmbocadasEnabled(false);
-                principalControl.nextTurn();
-                startNextTurn();
-            }
-        });
-        gameTimer.start();
     }
 
     private void onIntentar(Embocada embocada) {

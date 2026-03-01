@@ -28,7 +28,7 @@ public class ResultsPanel extends JPanel {
     private javax.swing.table.DefaultTableModel tableModel;
     private JTable tabla;
 
-    private static final String[] COLUMNS = {"Pos", "Equipo", "Proyecto", "Puntos", "Intentos", "Embocadas"};
+    private static final String[] COLUMNS = {"Pos", "Equipo", "Proyecto", "Puntos"};
 
     public ResultsPanel() {
         setLayout(new BorderLayout(15, 15));
@@ -260,9 +260,7 @@ public class ResultsPanel extends JPanel {
                         pos++,
                         entry.getKey().getName(),
                         entry.getKey().getProyect(),
-                        s.getPoints(),
-                        s.getAttempts(),
-                        s.getEmbocadas()
+                        s.getPoints()
                     });
                 }
             });

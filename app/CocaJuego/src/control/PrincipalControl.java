@@ -118,6 +118,10 @@ public class PrincipalControl {
                 Integer.parseInt(codigoJ3)
             );
 
+            if (codigos.stream().distinct().count() != codigos.size()) {
+                return "Los códigos de los jugadores no pueden repetirse.";
+            }           
+
             Team team = teamsControl.createTeam(nombre, proyecto, nombres, codigos, pinInt);
             persistenceControl.saveTeamProperties(team);
             addTeam(team);

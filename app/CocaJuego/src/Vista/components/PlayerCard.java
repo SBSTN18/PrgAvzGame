@@ -2,6 +2,8 @@ package Vista.components;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+
 import javax.swing.*;
 import modelo.Player;
 
@@ -35,7 +37,7 @@ public class PlayerCard extends JPanel {
 
         // Nombre del jugador
         JLabel nameLabel = new JLabel(player.getName(), SwingConstants.CENTER); //errpr graso
-        nameLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         nameLabel.setForeground(Color.WHITE);
 
         add(imgLabel, BorderLayout.CENTER);
@@ -47,19 +49,28 @@ public class PlayerCard extends JPanel {
      * Reemplaza "player.png" por el nombre de tu imagen.
      */
     private static ImageIcon loadImage() {
-        try {
-            ImageIcon icon = new ImageIcon(PlayerCard.class.getResource("/resources/player.png"));
-            Image scaled = icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
-            return new ImageIcon(scaled);
-        } catch (Exception e) {
-            // Placeholder si no encuentra la imagen
-            BufferedImage placeholder = new BufferedImage(60, 60, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g = placeholder.createGraphics();
-            g.setColor(Color.GRAY);
-            g.fillOval(0, 0, 60, 60);
-            g.dispose();
-            return new ImageIcon(placeholder);
+    try {
+        File imgFile = new File("Specs/resources/player.png").getAbsoluteFile();
+        System.out.println("Buscando imagen en: " + imgFile.getAbsolutePath());
+        System.out.println("Existe: " + imgFile.exists());
+        if (!imgFile.exists()) {
+            return createPlaceholder();
         }
+        ImageIcon icon = new ImageIcon(imgFile.getAbsolutePath());
+        Image scaled = icon.getImage().getScaledInstance(110, 150, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaled);
+    } catch (Exception e) {
+        return createPlaceholder();
+    }
+    }
+
+    private static ImageIcon createPlaceholder() {
+        BufferedImage placeholder = new BufferedImage(60, 60, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = placeholder.createGraphics();
+        g.setColor(Color.GRAY);
+        g.fillOval(0, 0, 60, 60);
+        g.dispose();
+        return new ImageIcon(placeholder);
     }
 
     /**
@@ -87,10 +98,10 @@ public class PlayerCard extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-        super.paintComponent(g2d);
+        super.paint(g2d);
         g2d.dispose();
     }
 }

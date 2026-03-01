@@ -99,7 +99,7 @@ public class MenuTPanel extends JPanel {
         lblCargar.setFont(new Font("Arial", Font.BOLD, 13));
         lblCargar.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        btnCargarEquipo = createButton("Seleccionar .properties", new Color(80, 80, 80));
+        btnCargarEquipo = createButton("Seleccionar equipos creados", new Color(80, 80, 80));
 
         JLabel lblDescCargar = new JLabel("<html><center>Selecciona un archivo .properties<br>y valida el equipo con PIN y códigos</center></html>");
         lblDescCargar.setForeground(Color.GRAY);
