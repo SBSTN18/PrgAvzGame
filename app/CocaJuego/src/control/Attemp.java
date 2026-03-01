@@ -12,28 +12,28 @@ public class Attemp {
     public Attemp() {
     }
 
-    public int determinatePoints(String type) {
+    public int execute(Embocada embocada) {
         
-        if (type.equalsIgnoreCase("simple")) {
-            embocada = Embocada.SIMPLE;
+        if (embocada == Embocada.SIMPLE) {
+            this.embocada = Embocada.SIMPLE;
             
-        }else if (type.equalsIgnoreCase("doble")) {
-            embocada = Embocada.DOBLE;
+        }else if (embocada == Embocada.DOBLE) {
+            this.embocada = Embocada.DOBLE;
            
-        }else if (type.equalsIgnoreCase("vertical")) {
-            embocada = Embocada.VERTICAL;
+        }else if (embocada == Embocada.VERTICAL) {
+            this.embocada = Embocada.VERTICAL;
 
-        } else if (type.equalsIgnoreCase("mariquita")) {
-            embocada = Embocada.MARIQUITA;
+        } else if (embocada == Embocada.MARIQUITA) {
+            this.embocada = Embocada.MARIQUITA;
             
-        } else if (type.equalsIgnoreCase("puñalada")) {
-            embocada = Embocada.PUÑALADA;
+        } else if (embocada == Embocada.PUÑALADA) {
+            this.embocada = Embocada.PUÑALADA;
             
-        } else if (type.equalsIgnoreCase("purtiña")) {
-            embocada = Embocada.PURTIÑA;
+        } else if (embocada == Embocada.PURTIÑA) {
+            this.embocada = Embocada.PURTIÑA;
 
-        } else if (type.equalsIgnoreCase("dominio")) {
-            embocada = Embocada.DOMINIO;
+        } else if (embocada == Embocada.DOMINIO) {
+            this.embocada = Embocada.DOMINIO;
             
         }
         random = new Random();

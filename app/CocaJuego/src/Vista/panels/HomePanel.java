@@ -88,14 +88,14 @@ public class HomePanel extends JPanel {
     /**
      * Retorna el botón de nuevo juego para que VistaControl le agregue el listener.
      */
-    public JButton getBtnNuevoJuego() {
+    public JButton getBtnNuevoTorneo() {
         return btnNuevoJuego;
     }
 
     /**
      * Retorna el botón de cargar partida para que VistaControl le agregue el listener.
      */
-    public JButton getBtnCargar() {
+    public JButton getBtnCargarUltimo() {
         return btnCargar;
     }
 }

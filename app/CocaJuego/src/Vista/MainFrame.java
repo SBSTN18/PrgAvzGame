@@ -5,9 +5,10 @@ import javax.swing.*;
 import control.PrincipalControl;
 import control.VistaControl;
 import Vista.panels.HomePanel;
-//import Vista.panels.LoadPanel;
+import Vista.panels.MenuTPanel;
+import Vista.panels.RegisterPanel;
+import Vista.panels.ResultsPanel;
 import Vista.panels.GamePanel;
-//import Vista.panels.ResultsPanel;
 
 /**
  * Ventana principal de la aplicación.
@@ -16,18 +17,21 @@ import Vista.panels.GamePanel;
  */
 public class MainFrame extends JFrame {
 
-    public static final String HOME_PANEL    = "HOME";
-    public static final String LOAD_PANEL    = "LOAD";
-    public static final String GAME_PANEL    = "GAME";
-    public static final String RESULTS_PANEL = "RESULTS";
+    public static final String HOME_PANEL         = "HOME";
+    public static final String MENU_TORNEO_PANEL  = "MENU_TORNEO";
+    public static final String REGISTER_PANEL     = "REGISTER";
+    public static final String GAME_PANEL         = "GAME";
+    public static final String RESULTS_PANEL      = "RESULTS";
+    
 
     private CardLayout cardLayout;
     private JPanel mainPanel;
 
     private HomePanel homePanel;
-    private LoadPanel loadPanel;
+    private MenuTPanel menuTPanel;
     private GamePanel gamePanel;
     private ResultsPanel resultsPanel;
+    private RegisterPanel registerPanel;
 
     public MainFrame() {
         initFrame();
@@ -49,12 +53,14 @@ public class MainFrame extends JFrame {
         mainPanel.setBackground(new Color(20, 20, 20));
 
         homePanel    = new HomePanel();
-        loadPanel    = new LoadPanel();
+        menuTPanel    = new MenuTPanel();
+        registerPanel = new RegisterPanel();
         gamePanel    = new GamePanel();
         resultsPanel = new ResultsPanel();
 
         mainPanel.add(homePanel,    HOME_PANEL);
-        mainPanel.add(loadPanel,    LOAD_PANEL);
+        mainPanel.add(menuTPanel,    MENU_TORNEO_PANEL);
+        mainPanel.add(registerPanel, REGISTER_PANEL);
         mainPanel.add(gamePanel,    GAME_PANEL);
         mainPanel.add(resultsPanel, RESULTS_PANEL);
 
@@ -74,7 +80,8 @@ public class MainFrame extends JFrame {
     // ─── GETTERS para VistaControl ───────────────────────────────────────────
 
     public HomePanel    getHomePanel()    { return homePanel;    }
-    public LoadPanel    getLoadPanel()    { return loadPanel;    }
+    public MenuTPanel    getMenuTPanel()    { return menuTPanel;    }
     public GamePanel    getGamePanel()    { return gamePanel;    }
     public ResultsPanel getResultsPanel() { return resultsPanel; }
+    public RegisterPanel getRegisterPanel() { return registerPanel; }
 }
